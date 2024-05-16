@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Numeric, Boolean,
 from sqlalchemy.orm import sessionmaker, relationship, declarative_base
 
 
-engine = create_engine('sqlite:///:memory:', echo=True)
+engine = create_engine('sqlite:///:memory:')
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -45,4 +45,7 @@ session.commit()
 
 category_products = session.query(Product).filter_by(category_id=category_1.id).all()
 
+for product in category_products:
+    print(f'Product: {product.name}, Price: {product.price}')
+    
 session.close()
